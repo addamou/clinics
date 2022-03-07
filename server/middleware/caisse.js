@@ -1,0 +1,20 @@
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, './uploads/caisses/');
+    },
+    filename: function (req, file, callback) {
+        callback(null, 'congar' + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+/*const fileFilter = (req, file, cb) => {
+    callback(null, true);
+};*/
+let upload = multer({
+    storage: storage,
+   // fileFilter: fileFilter,
+});
+
+module.exports = upload.single('document')
